@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         taskItem.addEventListener("click", () => {
             const url = taskItem.getAttribute("data-url");
             window.open(url, "_blank");
-            claimButton.style.display = "block";
+            
         });
 
         claimButton.addEventListener("click", (event) => {
