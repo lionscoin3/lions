@@ -19,7 +19,7 @@ async function fetchUserData() {
 
 
 // Initialize balance from localStorage or set to 100
-let balance = parseInt(localStorage.getItem('balance')) || 100;
+let balance = parseInt(localStorage.getItem('balance')) || 2350;
 
 // Display balance
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchUserData();
 
     // Update balance from localStorage
-    balance = parseInt(localStorage.getItem('balance')) || 100; // Get updated balance
+    balance = parseInt(localStorage.getItem('balance')) || 2350; // Get updated balance
     balanceElement.innerText = balance; // Update displayed balance
 
     // Select all follow buttons
