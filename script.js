@@ -1,25 +1,21 @@
 // Initialize balance from localStorage or set to 2150
-let balance = parseInt(localStorage.getItem('balance')) || 2150;
+let balance = parseInt(localStorage.getItem('balance')) || 2150; // Default to 2150 if no value in localStorage
 
 // Display balance
 document.addEventListener("DOMContentLoaded", () => {
     const balanceElement = document.querySelector(".balance p");
-    balanceElement.innerText = balance; // Initial display from localStorage
-
-    // Update balance from localStorage
-    balance = parseInt(localStorage.getItem('balance')) || 2150; // Get updated balance
-    balanceElement.innerText = balance; // Update displayed balance
+    balanceElement.innerText = balance; // Display balance on load
 
     // Select all task boxes
     const taskBoxes = document.querySelectorAll(".task-box");
 
     taskBoxes.forEach((taskBox, index) => {
         const actionType = taskBox.querySelector(".follow-btn").innerText.toLowerCase(); // e.g., "follow", "subscribe", "join"
-        const storageKey = `task${index + 1}_${actionType}`;
+        const storageKey = `task${index + 1}_${actionType}`; // Storage key for task completion
         const taskUrl = taskBox.getAttribute("data-url"); // Get the URL from data-url attribute
         const button = taskBox.querySelector(".follow-btn"); // Get the button inside the box
 
-        // Check status from localStorage
+        // Check task completion status from localStorage
         const isCompleted = localStorage.getItem(storageKey) === 'true';
         if (isCompleted) {
             button.innerText = capitalize(actionType) + "ed";
