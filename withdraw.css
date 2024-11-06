@@ -1,47 +1,116 @@
-/* General styles */
-body {
+/* General Body Styling */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: 'Arial', sans-serif;
+    background-color: #1d1f21; /* Dark background */
+    color: #fff; /* White text */
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     height: 100vh;
-    background-color: #000000; /* Use your preferred color */
-    color: white;
+    margin: 0;
+    overflow: hidden; /* Prevent scrolling */
 }
 
-.main-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 900px;
-    padding: 20px;
-}
-
-.withdraw-container {
-    width: 80%;
-    background: linear-gradient(90deg, #000000, #2f2f33);
-    border-radius: 20px;
-    margin-top: 30px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.withdraw-header {
+/* Centered Container Styling */
+.container {
     text-align: center;
+    padding: 40px 30px; /* Increased padding for more space */
+    background-color: #222; /* Dark gray container */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Max width for larger screens */
+    margin: 20px;
+    height: 70%; /* Increased height for a fuller page */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
 }
 
-.mine-icon {
-    width: 250px; /* Adjust the size as needed */
-    height: 250px; /* Adjust the size as needed */
-    margin: 20px 0; /* Add spacing above and below the image */
+/* Heading Styling */
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff; /* White text */
+    margin-bottom: 30px;
 }
 
-.coming-soon {
-    font-size: 24px;
-    margin-top: 20px; /* Adjust margin for spacing */
+/* Button Styling */
+button {
+    background-color: #007bff; /* Blue button background */
+    color: #fff; /* White text */
+    border: 2px solid #007bff; /* Blue border */
+    padding: 18px 25px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%; /* Full width on mobile */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: #fff; /* White text */
+    border-color: #0056b3; /* Darker border */
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Disabled Button Styling */
+button:disabled {
+    background-color: #555; /* Gray background when disabled */
+    color: #888; /* Light gray text when disabled */
+    border-color: #555; /* Gray border */
+    cursor: not-allowed; /* Show a not-allowed cursor */
+}
+
+/* Status Message Styling */
+#status {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #fff; /* White text */
+    margin-top: 15px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Add padding on smaller screens */
+    }
+
+    h1 {
+        font-size: 24px; /* Slightly smaller heading on mobile */
+    }
+
+    button {
+        font-size: 16px; /* Adjust button font size for mobile */
+        padding: 15px 20px; /* Adjust padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px; /* Adjust container padding */
+        width: 100%; /* Ensure container takes full width on very small screens */
+        max-width: 100%; /* Remove max-width */
+    }
+
+    h1 {
+        font-size: 22px; /* Reduce heading size further on very small screens */
+    }
+
+    button {
+        font-size: 14px; /* Smaller button font size */
+        padding: 12px 16px; /* Smaller button padding */
+    }
 }
 .taskbar {
     display: flex;
@@ -61,6 +130,3 @@ body {
     width: 40px;
     height: 40px;
 }
-
-
-
