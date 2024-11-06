@@ -10,14 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     balance = parseInt(localStorage.getItem('balance')) || 2150; // Get updated balance
     balanceElement.innerText = balance; // Update displayed balance
 
-    // Select all follow buttons
-    const followButtons = document.querySelectorAll(".follow-btn");
+    // Select all task boxes
+    const taskBoxes = document.querySelectorAll(".task-box");
 
-    followButtons.forEach((button, index) => {
-        const actionType = button.innerText.toLowerCase(); // e.g., "follow", "subscribe", "join"
+    taskBoxes.forEach((taskBox, index) => {
+        const actionType = taskBox.querySelector(".follow-btn").innerText.toLowerCase(); // e.g., "follow", "subscribe", "join"
         const storageKey = `task${index + 1}_${actionType}`;
-        const taskBox = button.closest(".task-box"); // Get the task box
         const taskUrl = taskBox.getAttribute("data-url"); // Get the URL from data-url attribute
+        const button = taskBox.querySelector(".follow-btn"); // Get the button inside the box
 
         // Check status from localStorage
         const isCompleted = localStorage.getItem(storageKey) === 'true';
@@ -27,16 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
             button.style.backgroundColor = "#666";
         }
 
-        button.addEventListener("click", () => {
+        // Make the entire task box clickable
+        taskBox.addEventListener("click", (e) => {
+            // If the button has already been marked as completed, just redirect
             if (!button.classList.contains("completed")) {
                 // Update button text and style
                 button.innerText = capitalize(actionType) + "ed";
                 button.classList.add("completed");
                 button.style.backgroundColor = "#666";
 
-                // Store status in localStorage
-                localStorage.setItem(storageKey, 'true');
-                
                 // Add 500 coins to the balance
                 balance += 500;
                 balanceElement.innerText = balance;
@@ -44,12 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Store updated balance in localStorage
                 localStorage.setItem('balance', balance);
 
-                // Open the task URL in a new tab
-                window.open(taskUrl, '_blank');
+                // Store task completion status in localStorage
+                localStorage.setItem(storageKey, 'true');
             }
+
+            // Open the task URL in a new tab
+            window.open(taskUrl, '_blank'); // Redirect to the link
+        });
+
+        // Prevent the button click from triggering the box click event
+        button.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent the task box click event from being triggered
         });
     });
 });
+
+// Notification handling
 document.addEventListener("DOMContentLoaded", () => {
     // Get the notification and close button
     const notification = document.getElementById("notification");
@@ -77,8 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Show the notification when the page loads (but only the first time)
     showNotification();
 });
-
-
 
 // Helper function to capitalize the first letter
 function capitalize(text) {
