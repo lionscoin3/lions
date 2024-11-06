@@ -4,7 +4,8 @@ const messageDisplay = document.querySelector('.message');
 const canvas = document.getElementById('wheel');
 const ctx = canvas.getContext('2d');
 
-const baseOptions = [0, 2000, 500, 5000, 100, 'Another\nChance'];
+// Replace "Another Chance" with 10000 in the base options
+const baseOptions = [0, 2000, 500, 5000, 100, 10000];
 let options = [];
 const numSegments = baseOptions.length;
 const segmentAngle = (2 * Math.PI) / numSegments;
@@ -152,20 +153,14 @@ function determineWinningSegment(angle) {
     const winningOption = options[segmentIndex];
     resultDisplay.textContent = `You won: ${winningOption}`;
 
-    if (winningOption === 'Another\nChance') {
-        messageDisplay.textContent = "Spin again!";
-        spinButton.disabled = false;
-    } else {
-        updateTimeRemaining(); // Only update the timer when the prize is not "Another Chance"
-        
-        if (typeof winningOption === 'number') {
-            let currentBalance = parseInt(localStorage.getItem('balance')) || 0;
-            currentBalance += winningOption;
-            localStorage.setItem('balance', currentBalance);
-        }
+    updateTimeRemaining();
+
+    if (typeof winningOption === 'number') {
+        let currentBalance = parseInt(localStorage.getItem('balance')) || 0;
+        currentBalance += winningOption;
+        localStorage.setItem('balance', currentBalance);
     }
 }
-
 
 // Initial drawing
 shuffleOptions();
