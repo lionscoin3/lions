@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@ton-client-js/ton-client-browser@latest/dist/ton-client-browser.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Withdraw</title>
-    <link rel="stylesheet" href="withdraw.css">
+    <title>TON Wallet</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
-        <div class="withdraw-container">
-            <div class="withdraw-header">
-                <h2>Wallet</h2>
-                <!-- Include the mine.png image here -->
-                <img src="mine.png" alt="Mine Icon" class="mine-icon">
-                <div class="coming-soon">
-                    <p>Coming Soon</p>
-                </div>
-            </div>
-        </div>
-        <nav class="taskbar">
-            <a href="home.html">
-                <img src="home.png" alt="Home" class="nav-icon">
-            </a>
-            <a href="task.html">
-                <img src="task.png" alt="Tasks" class="nav-icon">
-            </a>
-            <a href="friend.html">
-                <img src="friend.png" alt="Friends" class="nav-icon">
-            </a>
-        </nav>
-  
+    <div class="container">
+        <h1>Connect to <br><br> TON Wallet</h1>
+        <button id="connectButton">Connect with TON Keeper</button>
+
+        <div id="status"></div> <!-- To display connection status -->
+        
+
+        <script src="script.js"></script>
+    </div>
+    <nav class="taskbar">
+        <a href="home.html">
+            <img src="home.png" alt="Home" class="nav-icon">
+        </a>
+        <a href="task.html">
+            <img src="task.png" alt="Tasks" class="nav-icon">
+        </a>
+        <a href="friend.html">
+            <img src="friend.png" alt="Friends" class="nav-icon">
+        </a>
+    </nav>
 </body>
 </html>
