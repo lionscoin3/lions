@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const balanceElement = document.querySelector(".balance p");
     balanceElement.innerText = balance; // Initial display from localStorage
 
-    // Fetch user data on page load
-    fetchUserData();
-
     // Update balance from localStorage
     balance = parseInt(localStorage.getItem('balance')) || 2150; // Get updated balance
     balanceElement.innerText = balance; // Update displayed balance
@@ -17,23 +14,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const followButtons = document.querySelectorAll(".follow-btn");
 
     followButtons.forEach((button, index) => {
-        // Check follow status from localStorage
-        const isFollowed = localStorage.getItem(`followedTask${index + 1}`) === 'true';
-        
-        if (isFollowed) {
-            button.innerText = "Followed";
-            button.classList.add("followed");
+        const actionType = button.innerText.toLowerCase(); // e.g., "follow", "subscribe", "join"
+        const storageKey = `task${index + 1}_${actionType}`;
+        const taskBox = button.closest(".task-box"); // Get the task box
+        const taskUrl = taskBox.getAttribute("data-url"); // Get the URL from data-url attribute
+
+        // Check status from localStorage
+        const isCompleted = localStorage.getItem(storageKey) === 'true';
+        if (isCompleted) {
+            button.innerText = capitalize(actionType) + "ed";
+            button.classList.add("completed");
             button.style.backgroundColor = "#666";
         }
 
         button.addEventListener("click", () => {
-            if (button.innerText === "Follow") {
-                button.innerText = "Followed";
-                button.classList.add("followed");
+            if (!button.classList.contains("completed")) {
+                // Update button text and style
+                button.innerText = capitalize(actionType) + "ed";
+                button.classList.add("completed");
                 button.style.backgroundColor = "#666";
-                
-                // Store follow status in localStorage
-                localStorage.setItem(`followedTask${index + 1}`, 'true');
+
+                // Store status in localStorage
+                localStorage.setItem(storageKey, 'true');
                 
                 // Add 500 coins to the balance
                 balance += 500;
@@ -41,7 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Store updated balance in localStorage
                 localStorage.setItem('balance', balance);
+
+                // Open the task URL in a new tab
+                window.open(taskUrl, '_blank');
             }
         });
     });
 });
+
+// Helper function to capitalize the first letter
+function capitalize(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
