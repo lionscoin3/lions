@@ -50,6 +50,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the notification and close button
+    const notification = document.getElementById("notification");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // Function to show the notification (only the first time)
+    function showNotification() {
+        // Check if the message has already been shown
+        const isNotificationShown = localStorage.getItem("notificationShown");
+
+        // If it hasn't been shown before, display the notification
+        if (!isNotificationShown) {
+            notification.classList.add("show");
+
+            // After showing the notification, set the flag in localStorage
+            localStorage.setItem("notificationShown", "true");
+        }
+    }
+
+    // Close the notification when the cross button is clicked
+    closeBtn.addEventListener("click", () => {
+        notification.classList.remove("show");
+    });
+
+    // Show the notification when the page loads (but only the first time)
+    showNotification();
+});
+
+
 
 // Helper function to capitalize the first letter
 function capitalize(text) {
