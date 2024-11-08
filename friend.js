@@ -1,61 +1,44 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const friendCountElement = document.querySelector(".friend-count");
-    const inviteButton = document.querySelector(".invite-button");
-    const friendInfo = document.querySelector(".friend-info");
-    const userNameElement = document.querySelector(".user-name");
-    const lionsCountElement = document.querySelector(".lions-count");
+// Your unique referral ID or username
+const referralID = "YOUR_USER_ID"; // Replace with actual user ID or unique referral code
 
-    // Generate or retrieve a unique user ID
-    let userId = localStorage.getItem('userId');
-    if (!userId) {
-        // If there's no userId in localStorage, generate a new unique ID
-        userId = 'user_' + Math.random().toString(36).substr(2, 9); // Simple unique ID generator
-        localStorage.setItem('userId', userId);
-    }
+// Function to invite a friend and generate the referral link
+function inviteFriend() {
+    // Generate the referral link
+    const referralLink = `https://lionscoin3.github.io/lions/?ref=${referralID}`;
 
-    // Initialize friend data from localStorage
-    let invitedFriends = JSON.parse(localStorage.getItem("invitedFriends")) || [];
-    updateFriendInfo();
+    
+    // Open the Telegram share dialog with the referral link
+    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
+    window.open(telegramLink, '_blank');
+}
 
-    // Set the current user's ID
-    userNameElement.innerText = invitedFriends.length === 0 ? "No one invited" : invitedFriends[invitedFriends.length - 1];
+// Function to update the UI based on the number of invited friends
+function updateUI() {
+    const friendCountElement = document.getElementById("friendCount");
+    const friendListElement = document.getElementById("friendList");
 
-    // Set up the invite button to share invite link via Telegram
-    inviteButton.addEventListener("click", () => {
-        // Replace "https://yourdomain.com" with your actual URL
-        const inviteLink = `https://t.ly/DEN9P/friend.html?referrer=${userId}`;
-        const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent("Join me on Lions Wallet and earn bonus Lions!")}`;
+    // Simulate tracking invited friends (You can replace this with actual data)
+    const friendsInvited = ["Friend 1", "Friend 2"]; // Example list
 
-        // Open Telegram share URL
-        window.open(telegramShareUrl, '_blank');
+    // Update the friend count text
+    friendCountElement.innerText = `${friendsInvited.length} friend${friendsInvited.length > 1 ? 's' : ''}`;
+    
+    // Clear and update friend list
+    friendListElement.innerHTML = '';
+    friendsInvited.forEach(friend => {
+        const friendItem = document.createElement("div");
+        friendItem.classList.add("friend-item");
+
+        const friendName = document.createElement("p");
+        friendName.classList.add("user-name");
+        friendName.innerText = friend;
+
+        const lionsReward = document.createElement("p");
+        lionsReward.classList.add("lions-count");
+        lionsReward.innerText = "+359 LIONS";
+
+        friendItem.appendChild(friendName);
+        friendItem.appendChild(lionsReward);
+        friendListElement.appendChild(friendItem);
     });
-
-    // Check if a friend joined via the invite link
-    const urlParams = new URLSearchParams(window.location.search);
-    const referrer = urlParams.get("referrer");
-
-    if (referrer && !invitedFriends.includes(referrer)) {
-        invitedFriends.push(referrer); // Add the new friend ID
-        localStorage.setItem("invitedFriends", JSON.stringify(invitedFriends)); // Save to localStorage
-
-        // Update the balance (e.g., +359 Lions for each friend)
-        let balance = parseInt(localStorage.getItem('balance')) || 100;
-        balance += 359;
-        localStorage.setItem('balance', balance);
-
-        updateFriendInfo(); // Update UI to reflect new friend data
-    }
-
-    // Function to update friend info display
-    function updateFriendInfo() {
-        if (invitedFriends.length > 0) {
-            friendCountElement.innerText = `${invitedFriends.length} friend(s)`;
-            userNameElement.innerText = invitedFriends[invitedFriends.length - 1]; // Show the latest invited friend ID
-            lionsCountElement.innerText = "+359 LIONS";
-        } else {
-            friendCountElement.innerText = ""; // Hide count when no friends are invited
-            userNameElement.innerText = "No one invited"; // Initial text
-            lionsCountElement.innerText = "+0 LIONS";
-        }
-    }
-});
+}
