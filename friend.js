@@ -1,14 +1,13 @@
-// Your unique referral ID or username
-const referralID = "YOUR_USER_ID"; // Replace with actual user ID or unique referral code
-
 // Function to invite a friend and generate the referral link
 function inviteFriend() {
-    // Generate the referral link
-    const referralLink = `https://lionscoin3.github.io/lions/?ref=${referralID}`;
+    // Retrieve the user's unique ID (make sure this is stored in localStorage beforehand)
+    const referralID = localStorage.getItem("userID") || "default_user_id"; // Fallback if ID isn't available
 
-    
-    // Open the Telegram share dialog with the referral link
-    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`;
+    // Generate the Telegram bot referral link with the user ID
+    const botLink = `https://t.me/lions_coins3_bot?start=${referralID}`;
+
+    // Open the Telegram share dialog with the referral bot link
+    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(botLink)}`;
     window.open(telegramLink, '_blank');
 }
 
@@ -17,12 +16,12 @@ function updateUI() {
     const friendCountElement = document.getElementById("friendCount");
     const friendListElement = document.getElementById("friendList");
 
-    // Simulate tracking invited friends (You can replace this with actual data)
-    const friendsInvited = ["Friend 1", "Friend 2"]; // Example list
+    // Simulated list of invited friends (you can replace this with actual data if available)
+    const friendsInvited = ["Friend 1", "Friend 2"];
 
     // Update the friend count text
     friendCountElement.innerText = `${friendsInvited.length} friend${friendsInvited.length > 1 ? 's' : ''}`;
-    
+
     // Clear and update friend list
     friendListElement.innerHTML = '';
     friendsInvited.forEach(friend => {
