@@ -15,16 +15,15 @@
         <img src="lion.png" alt="Lion Icon" class="lion-icon">
         
         <div class="friend-header">
-            <p class="friend-count">1 friend</p>
-            <button class="invite-button">Invite Friends</button>
+            <p id="friendCount" class="friend-count">Invite friends </p>
+            <button class="invite-button" onclick="inviteFriend()">Invite Friends</button>
         </div>
 
-        <div class="friend-info">
-            <img src="user.png" alt="User Icon" class="user-icon">
-            <p class="user-name">No Name</p>
-            <p class="lions-count">+359 LIONS</p>
+        <div id="friendList" class="friend-info">
+            <!-- Friends will be listed here dynamically -->
         </div>
     </div>
+    
     <nav class="taskbar">
         <a href="home.html">
             <img src="home.png" alt="Home" class="nav-icon">
@@ -36,7 +35,7 @@
             <img src="friend.png" alt="Friends" class="nav-icon">
         </a>
     </nav>
-    <script src="friend.js"></script>
 
+    <script src="friend.js"></script>
 </body>
 </html>
