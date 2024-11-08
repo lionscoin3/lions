@@ -1,7 +1,15 @@
-// Function to invite a friend and generate the referral link
+// Step 1: Automatically generate and store a unique user ID in localStorage if it doesn't already exist
+(function generateUserID() {
+    if (!localStorage.getItem('userID')) {
+        const uniqueID = 'user_' + Math.floor(Math.random() * 1000000); // Generate unique ID
+        localStorage.setItem('userID', uniqueID);
+    }
+})();
+
+// Step 2: Function to invite a friend and generate the referral link
 function inviteFriend() {
-    // Retrieve the user's unique ID (make sure this is stored in localStorage beforehand)
-    const referralID = localStorage.getItem("userID") || "default_user_id"; // Fallback if ID isn't available
+    // Retrieve the user's unique ID from localStorage
+    const referralID = localStorage.getItem("userID");
 
     // Generate the Telegram bot referral link with the user ID
     const botLink = `https://t.me/lions_coins3_bot?start=${referralID}`;
@@ -11,13 +19,13 @@ function inviteFriend() {
     window.open(telegramLink, '_blank');
 }
 
-// Function to update the UI based on the number of invited friends
+// Step 3: Function to update the UI based on the number of invited friends
 function updateUI() {
     const friendCountElement = document.getElementById("friendCount");
     const friendListElement = document.getElementById("friendList");
 
-    // Simulated list of invited friends (you can replace this with actual data if available)
-    const friendsInvited = ["Friend 1", "Friend 2"];
+    // Retrieve list of friends invited (simulated with localStorage for now)
+    const friendsInvited = JSON.parse(localStorage.getItem("friendsInvited") || "[]");
 
     // Update the friend count text
     friendCountElement.innerText = `${friendsInvited.length} friend${friendsInvited.length > 1 ? 's' : ''}`;
@@ -41,3 +49,9 @@ function updateUI() {
         friendListElement.appendChild(friendItem);
     });
 }
+
+// Initialize the UI on page load
+document.addEventListener("DOMContentLoaded", () => {
+    updateUI();
+    document.getElementById("inviteButton").addEventListener("click", inviteFriend);
+});
