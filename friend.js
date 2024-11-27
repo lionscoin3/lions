@@ -12,7 +12,7 @@ function inviteFriend() {
     const referralID = localStorage.getItem("userID");
 
     // Generate the Telegram bot referral link with the user ID
-    const botLink = `https://shorturl.at/5YyIh?start=${referralID}`;
+    const botLink = `https://lionscoin3.github.io/lions/?start=${referralID}`;
 
     // Open the Telegram share dialog with the referral bot link
     const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(botLink)}`;
