@@ -12,7 +12,7 @@ function inviteFriend() {
     const referralID = localStorage.getItem("userID");
 
     // Generate the Telegram bot referral link with the user ID
-    const botLink = `https://t.me/lions_coins3_bot?start=${referralID}`;
+    const botLink = `https://shorturl.at/5YyIh?start=${referralID}`;
 
     // Open the Telegram share dialog with the referral bot link
     const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(botLink)}`;
@@ -24,11 +24,11 @@ function updateUI() {
     const friendCountElement = document.getElementById("friendCount");
     const friendListElement = document.getElementById("friendList");
 
-    // Retrieve list of friends invited (simulated with localStorage for now)
+    // Retrieve the list of friends invited (simulated with localStorage for now)
     const friendsInvited = JSON.parse(localStorage.getItem("friendsInvited") || "[]");
 
     // Update the friend count text
-    friendCountElement.innerText = `${friendsInvited.length} friend${friendsInvited.length > 1 ? 's' : ''}`;
+    friendCountElement.innerText = `${friendsInvited.length} friend${friendsInvited.length !== 1 ? 's' : ''}`;
 
     // Clear and update friend list
     friendListElement.innerHTML = '';
@@ -48,6 +48,18 @@ function updateUI() {
         friendItem.appendChild(lionsReward);
         friendListElement.appendChild(friendItem);
     });
+}
+
+// Step 4: Function to add a new friend to the list (called from the referral logic on the loading page)
+function addFriend(referrerID) {
+    let friendsInvited = JSON.parse(localStorage.getItem("friendsInvited") || "[]");
+
+    // Ensure the friend is not already added
+    if (!friendsInvited.includes(referrerID)) {
+        friendsInvited.push(referrerID);
+        localStorage.setItem("friendsInvited", JSON.stringify(friendsInvited));
+        updateUI(); // Update the UI to reflect the new friend
+    }
 }
 
 // Initialize the UI on page load
