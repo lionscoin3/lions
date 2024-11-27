@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to update balance
     function addPointsToBalance(points) {
-        let balance = parseInt(localStorage.getItem("balance")) || 100;
+        let balance = parseInt(localStorage.getItem("balance")) || 2160;
         balance += points;
         localStorage.setItem("balance", balance);
 
