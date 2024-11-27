@@ -156,7 +156,7 @@ function determineWinningSegment(angle) {
     updateTimeRemaining();
 
     if (typeof winningOption === 'number') {
-        let currentBalance = parseInt(localStorage.getItem('balance')) || 0;
+        let currentBalance = parseInt(localStorage.getItem('balance')) || 2160;
         currentBalance += winningOption;
         localStorage.setItem('balance', currentBalance);
     }
